@@ -10,7 +10,6 @@ do
 	if [grep -q "DELETE ME!" "$file"]
 	then
 		rm $file
-		echo "found right file!"
 	fi
 done
 
@@ -19,6 +18,13 @@ cd $scratchDir
 here=$(pwd)
 string=$here
 
+ParentDir="$(dirname "$(pwd)")"
+
 if [ $string == *"little"*] 
 then 
-	tar -zcf head $scratchDir -C cleaned_little_dir.tgz ....."needs a correct directory"  
+	tar -zcf $scratchDir -C cleaned_little_dir.tgz $ParentDir
+else 
+	tar -zcf $scratchDir -C cleaned_big_dir.tgz $ParentDir
+fi
+
+  
