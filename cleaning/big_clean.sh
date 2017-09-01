@@ -3,28 +3,30 @@
 tarDir=$1
 scratchDir=$2
 
+boolean=$false
+[[ "$PWD" == *little* ]] && $boolean=$true
+
+
 tar -xzf $tarDir -C $scratchDir
 
-for file in $scratchDir
-do
-	if [grep -q "DELETE ME!" "$file"]
-	then
-		rm $file
-	fi
-done
+for file in $scratchDir/little_dir
+	do
+	if grep -lr "DELETE ME!" $file
+		then
+			echo "i found a file"
+			rm $file
+		fi
+	done
 
-cd $scratchDir
 
-here=$(pwd)
-string=$here
 
-ParentDir="$(dirname "$(pwd)")"
+#if [$boolean == $true] 
+#then
+#       echo "true"	
+#	tar -zcf cleaned_little_dir.tgz $scratchDir/little_dir
+#else
+#	echo "false"
+#	tar -zcf cleaned_big_dir.tgz $scratchDir/big_dir
 
-if [ $string == *"little"*] 
-then 
-	tar -zcf $scratchDir -C cleaned_little_dir.tgz $ParentDir
-else 
-	tar -zcf $scratchDir -C cleaned_big_dir.tgz $ParentDir
-fi
+#fi
 
-  
